@@ -81,6 +81,16 @@ int main() {
 		cout << "Size: " << vec1.size() << "\n";
 		cout << "Capacity: " << vec1.capacity() << "\n";
 
+		cout << "==================정렬 후 확인================\n";
+		vec1.sortData();
+
+		for (int i = 0; i < vecSize; i++) {
+			cout << "[ " << vec1[i] << " ] ";
+			if ((i + 1) % 10 == 0 || (i + 1) == vecSize) {
+				cout << "\n";
+			}
+		}
+
 		// vector확인
 		/*vector<int> vect = { 1, 2, 3, 4, 5 };
 		for (int i = 0; i < vect.size(); i++) {

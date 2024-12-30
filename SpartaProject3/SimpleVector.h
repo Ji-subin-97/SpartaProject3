@@ -78,6 +78,10 @@ public:
 	{
 		return currentCapacity;
 	}
+	void sortData()
+	{
+		sort(data, data + currentSize);
+	}
 };
 
 #endif

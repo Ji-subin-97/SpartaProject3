@@ -13,7 +13,19 @@ private:
 	int currentSize;
 	int currentCapacity;
 
-	void resize();
+	void resize(int newCapacity)
+	{
+		if (newCapacity > currentCapacity) {
+			T* newData = new T[newCapacity];
+			for (int i = 0; i < currentSize; i++) {
+				newData[i] = data[i];
+			}
+
+			delete[] data;
+			data = newData;
+			currentCapacity = newCapacity;
+		}
+	}
 public:
 	SimpleVector() : currentSize(0), currentCapacity(10)
 	{
@@ -45,18 +57,11 @@ public:
 			data[currentSize - 1] = value;
 		}
 		else {
-			currentCapacity += 5;
-
-			T* newData = new T[currentCapacity + 1]; // +1 미적용시 버퍼 오버런 경고문구가뜸..
-			for (int i = 0; i < currentSize; i++) {
-				newData[i] = data[i];
-			}
+			int newCapacity = currentCapacity + 5;
+			resize(newCapacity);
 
 			currentSize++;
-			newData[currentSize - 1] = value;
-
-			delete data;
-			data = newData;
+			data[currentSize - 1] = value;
 		}
 	}
 	void pop_back()

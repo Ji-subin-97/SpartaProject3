@@ -2,6 +2,7 @@
 #define SIMPLEVECTOR_H
 
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 template <typename T>
@@ -30,20 +31,32 @@ public:
 	}
 	~SimpleVector() 
 	{
-		delete data;
+		delete[] data;
 	}
 
-	/* === 연산자 오버로딩 === */
  	T& operator[](int idx) {
 		return data[idx];
 	}
-	/* ======================= */
 
 	void push_back(const T& value)
 	{
 		if (currentSize < currentCapacity) {
 			currentSize++;
 			data[currentSize - 1] = value;
+		}
+		else {
+			currentCapacity += 5;
+
+			T* newData = new T[currentCapacity + 1]; // +1 미적용시 버퍼 오버런 경고문구가뜸..
+			for (int i = 0; i < currentSize; i++) {
+				newData[i] = data[i];
+			}
+
+			currentSize++;
+			newData[currentSize - 1] = value;
+
+			delete data;
+			data = newData;
 		}
 	}
 	void pop_back()
